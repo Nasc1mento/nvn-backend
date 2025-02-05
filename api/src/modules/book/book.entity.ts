@@ -21,5 +21,5 @@ export class BookEntity implements Book {
     description: string;
 }
 
-export class BookCreateDto extends OmitType(BookEntity, ['id']) {}
+export class BookCreateDto extends OmitType(BookEntity, ['id', 'userId']) {}
 export class BookUpdateDto extends OmitType(PartialType(BookEntity), ['id','userId']) {}
