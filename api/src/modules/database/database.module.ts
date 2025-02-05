@@ -8,7 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('DATABASE_URI'),
+        uri: configService.get('DATABASE_URI'),
       }),
       inject: [ConfigService],
     }),

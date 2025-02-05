@@ -1,14 +1,13 @@
-# https://docs.nestjs.com/deployment#dockerizing-your-application
-FROM node:20
-WORKDIR /usr/src/app
+FROM alpine
+RUN apk add --no-cache nodejs npm
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
-ENV PORT=3000
-ENV DATABASE_URL=mongodb://localhost:27017/tadw
-ENV JWT_SECRET=secret
-ENV JWT_EXPIRE_IN=1d
-ENV BCRYPT_SALT=10
+ENV PORT=
+ENV DATABASE_URI=
+ENV JWT_SECRET=
+ENV JWT_EXPIRE_IN=
+ENV BCRYPT_SALT=
 COPY . .
 RUN npm run build
-EXPOSE 3000
 CMD ["node", "dist/main"]
