@@ -4,7 +4,6 @@ import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { APP_GUARD } from "@nestjs/core";
 import { AuthGuard } from "./guard/auth.guard";
-import { DatabaseModule } from "../database/database.module";
 import { MongooseModule } from "@nestjs/mongoose";
 import { User, UserSchema } from "../user/user.schema";
 import { ConfigModule, ConfigService } from "@nestjs/config";
@@ -22,7 +21,6 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
       }),
         inject: [ConfigService],
       }),
-      DatabaseModule,
       MongooseModule.forFeature([
         {
             name: User.name,

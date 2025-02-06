@@ -7,7 +7,7 @@ import { JwtService } from "@nestjs/jwt";
 import { plainToInstance } from "class-transformer";
 
 
-@Injectable({scope: Scope.REQUEST})
+@Injectable()
 export class AuthService {
     constructor(
         @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
@@ -26,7 +26,7 @@ export class AuthService {
         }
 
         return {
-            token: this.jwtService.sign({ id: user._id }),
+            token: this.jwtService.sign({ id: user.id }),
             user: plainToInstance(UserEntity, user),
         };
     }

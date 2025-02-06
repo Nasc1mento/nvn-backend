@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Model } from 'mongoose';
+import { Book, BookSchema } from '../book/book.schema';
 
 
 export interface UserDocument extends User, Document  {
