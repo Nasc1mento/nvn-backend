@@ -5,6 +5,7 @@ import { Expose } from "class-transformer";
 
 
 export class BookEntity implements Book {
+    @ApiProperty()
     @Expose()
     id?: string
     @ApiProperty()

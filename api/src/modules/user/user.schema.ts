@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Model } from 'mongoose';
+import { Document } from 'mongoose';
 import { Book, BookSchema } from '../book/book.schema';
 
 
@@ -36,6 +36,16 @@ UserSchema.pre('save', async function (next) {
         }
     },
 );
+
+UserSchema.pre('deleteOne', async function(next) {
+    try {
+        const id = this.getQuery()['_id'];
+        const bookModel = this.model.db.model(Book.name, BookSchema);
+        await bookModel.deleteMany({userId: id}); 
+    } catch(error) {
+        next(error);
+    }
+});
 
 UserSchema.methods.comparePassword = async function (password: string) {
     return bcrypt.compare(password, this.password);

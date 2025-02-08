@@ -6,6 +6,8 @@ import { Expose } from "class-transformer";
 
 
 export class UserEntity implements User {
+    @Expose()
+    @ApiProperty()
     id?: string;
     @ApiProperty()
     @IsNotEmpty({message: 'CPF is required'})
