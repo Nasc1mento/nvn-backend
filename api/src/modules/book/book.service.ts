@@ -1,4 +1,4 @@
-import { BadRequestException, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Book, BookDocument } from "./book.schema";
 import { Model } from "mongoose";
@@ -6,8 +6,7 @@ import { BookCreateDto, BookEntity, BookUpdateDto } from "./book.entity";
 import { User, UserDocument } from "../user/user.schema";
 import { plainToInstance } from "class-transformer";
 
-
-
+@Injectable()
 export class BookService {
     constructor(
         @InjectModel(Book.name) private readonly bookModel: Model<BookDocument>,

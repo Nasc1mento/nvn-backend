@@ -1,0 +1,18 @@
+import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+
+
+export abstract class IAppConfig {
+    PORT: number;
+    MONGO_URI: string;
+    JWT_SECRET: string;
+    JWT_EXPIRE_IN: string | number;
+}
+
+@Injectable()
+export class AppConfigService extends ConfigService implements IAppConfig {
+    PORT = this.get('PORT');
+    MONGO_URI = this.get('MONGO_URI');
+    JWT_SECRET = this.get('JWT_SECRET');
+    JWT_EXPIRE_IN = this.get<string | number>('JWT_EXPIRE_IN', { infer: true });
+} 

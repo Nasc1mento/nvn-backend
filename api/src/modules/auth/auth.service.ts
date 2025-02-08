@@ -36,7 +36,7 @@ export class AuthService {
         if (user) {
             throw new BadRequestException('User already exists');
         }
-        
+
         return plainToInstance(UserEntity, await this.userModel.create(entity));
     }
 }

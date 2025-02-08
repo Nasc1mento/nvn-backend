@@ -6,20 +6,23 @@ import { APP_GUARD } from "@nestjs/core";
 import { AuthGuard } from "./guard/auth.guard";
 import { MongooseModule } from "@nestjs/mongoose";
 import { User, UserSchema } from "../user/user.schema";
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigService } from "@nestjs/config";
+import { AppConfigService } from "../config/config.service";
+import { AppConfigModule } from "../config/config.module";
 
 
 @Module({
     imports: [
+      AppConfigModule,
       JwtModule.registerAsync({
-        imports: [ConfigModule],
-        useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET'),
+        imports: [AppConfigModule],
+        useFactory: async (configService: AppConfigService) => ({
+        secret: configService.JWT_SECRET,
         signOptions: {
-          expiresIn: configService.get<string | number>('JWT_EXPIRE_IN'),
+          expiresIn: configService.JWT_EXPIRE_IN,
         },
       }),
-        inject: [ConfigService],
+        inject: [AppConfigService],
       }),
       MongooseModule.forFeature([
         {

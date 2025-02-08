@@ -2,12 +2,12 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ConfigService } from '@nestjs/config';
+import { AppConfigService } from './modules/config/config.service';
 
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
+  const configService = app.get(AppConfigService);
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(
     new ClassSerializerInterceptor(app.get(Reflector), {
@@ -27,7 +27,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(configService.get('PORT') || 3000);
+  await app.listen(configService.PORT);
 }
 
 bootstrap();

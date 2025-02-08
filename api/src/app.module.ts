@@ -3,15 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { BookModule } from './modules/book/book.module';
-import { ConfigModule } from '@nestjs/config';
 import { UserMoule } from './modules/user/user.module';
 import { DatabaseModule } from './modules/database/database.module';
+import { AppConfigModule } from './modules/config/config.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-    isGlobal: true,
-    }),
+    AppConfigModule,
     DatabaseModule,
     AuthModule,
     BookModule,
