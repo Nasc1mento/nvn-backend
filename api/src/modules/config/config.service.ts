@@ -7,6 +7,8 @@ export abstract class IAppConfig {
     MONGO_URI: string;
     JWT_SECRET: string;
     JWT_EXPIRE_IN: string | number;
+    SSL_KEY_PATH: string;
+    SSL_CERT_PATH: string;
 }
 
 @Injectable()
@@ -15,4 +17,6 @@ export class AppConfigService extends ConfigService implements IAppConfig {
     MONGO_URI = this.get('MONGO_URI');
     JWT_SECRET = this.get('JWT_SECRET');
     JWT_EXPIRE_IN = this.get<string | number>('JWT_EXPIRE_IN', { infer: true });
+    SSL_KEY_PATH = this.get('SSL_KEY_PATH');
+    SSL_CERT_PATH = this.get('SSL_CERT_PATH');
 } 
