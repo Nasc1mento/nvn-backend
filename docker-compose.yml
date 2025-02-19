@@ -1,0 +1,30 @@
+services:
+  # https://www.mongodb.com/resources/products/compatibilities/docker
+  mongodb:
+    image: mongo
+    container_name: mongodb-nvn
+    networks:
+      - nvn-network
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      # https://www.docker.com/blog/how-to-setup-your-local-node-js-development-environment-using-docker/
+    env_file:
+      - ./api/.env
+    container_name: api-nvn
+    networks:
+      - nvn-network
+  reverse-proxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: reverse-proxy-nvn
+    networks:
+      - nvn-network
+    ports:
+      - "8080:8080"
+    
+networks:
+  nvn-network:
+    driver: bridge

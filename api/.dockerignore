@@ -4,5 +4,4 @@ dist
 *.md
 .git
 .gitignore
-.env
 .env.example
