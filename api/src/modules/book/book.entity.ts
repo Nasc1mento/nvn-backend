@@ -17,9 +17,17 @@ export class BookEntity implements Book {
     @Expose()
     title: string;
     @ApiProperty()
-    @IsNotEmpty({message: 'The description is required'})
+    @IsNotEmpty({message: 'The author is required'})
     @Expose()
-    description: string;
+    author: string;
+    @ApiProperty()
+    @IsNotEmpty({message: 'The genre is required'})
+    @Expose()
+    genre: string;
+    @ApiProperty()
+    @IsNotEmpty({message: 'The number of pages is required'})
+    @Expose()
+    pages: number;
 }
 
 export class BookCreateDto extends OmitType(BookEntity, ['id', 'userId']) {}

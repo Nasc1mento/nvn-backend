@@ -17,6 +17,10 @@ export class User {
     })
     cpf: string;
     @Prop()
+    name: string;
+    @Prop()
+    email: string;
+    @Prop()
     password: string;
 
 }

@@ -1,4 +1,4 @@
-import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
+import { IsEmail, IsNotEmpty, MaxLength, Min, MinLength } from "class-validator";
 import { IsValidCPF } from "./userCpfValidation.decorator";
 import { User } from "./user.schema";
 import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger";
@@ -14,10 +14,21 @@ export class UserEntity implements User {
     @IsValidCPF({message: 'Invalid CPF'})
     @Expose()
     cpf: string;
+    @Expose()
     @ApiProperty()
-    @IsNotEmpty({message: 'The password is required'})
-    @MinLength(8, {message: 'The password is too short'})
-    @MaxLength(20, {message: 'The password is too long'})
+    @IsNotEmpty({message: 'Name is required'})
+    @MinLength(3, {message: 'Name is too short'})
+    @MaxLength(12, {message: 'Name is too long'})
+    name: string;
+    @Expose()
+    @ApiProperty()
+    @IsNotEmpty({message: 'Email is required'})
+    @IsEmail()
+    email: string;
+    @ApiProperty()
+    @IsNotEmpty({message: 'Password is required'})
+    @MinLength(8, {message: 'Password is too short'})
+    @MaxLength(20, {message: 'Password is too long'})
     password: string;
 }
 

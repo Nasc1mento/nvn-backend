@@ -10,7 +10,11 @@ export class Book {
     @Prop()
     title: string;
     @Prop()
-    description: string;
+    author: string;
+    @Prop()
+    genre: string;
+    @Prop()
+    pages: number;
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);
