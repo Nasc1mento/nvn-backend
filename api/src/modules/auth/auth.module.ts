@@ -6,7 +6,6 @@ import { APP_GUARD } from "@nestjs/core";
 import { AuthGuard } from "./guard/auth.guard";
 import { MongooseModule } from "@nestjs/mongoose";
 import { User, UserSchema } from "../user/user.schema";
-import { ConfigService } from "@nestjs/config";
 import { AppConfigService } from "../config/config.service";
 import { AppConfigModule } from "../config/config.module";
 
