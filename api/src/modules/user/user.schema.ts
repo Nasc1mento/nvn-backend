@@ -18,7 +18,9 @@ export class User {
     cpf: string;
     @Prop()
     name: string;
-    @Prop()
+    @Prop({
+        unique: true,
+    })
     email: string;
     @Prop()
     password: string;
