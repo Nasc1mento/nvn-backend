@@ -5,6 +5,8 @@ services:
     container_name: mongodb-nvn
     networks:
       - nvn-network
+    volumes:
+      - mongodb-nvn-data:/data/db
   api:
     build:
       context: ./api
@@ -28,3 +30,5 @@ services:
 networks:
   nvn-network:
     driver: bridge
+volumes:
+  mongodb-nvn-data:
