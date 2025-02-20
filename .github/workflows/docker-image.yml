@@ -12,7 +12,7 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -20,6 +20,6 @@ jobs:
     - name: Build the Docker image
       run: | 
         docker login --username nasc1mento --password ${{ secrets.GITHUB_TOKEN }} ghcr.io
-        docker build ./api --tag ghcr.io/nasc1mento/nvn-api:latest
+        docker build ./api/. --tag ghcr.io/nasc1mento/nvn-api:latest
         docker push ghcr.io/nasc1mento/nvn-api
 
