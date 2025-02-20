@@ -8,19 +8,24 @@ on:
 
 jobs:
 
-  build_and_publish:
+  build_and_publish_api:
 
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
       id-token: write
+    strategy:
+      matrix:
+        app: [nvn-api, nvn-proxy]
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
+    - name: Build the Docker ${{ matrix.app }}
       run: | 
         docker login --username nasc1mento --password ${{ secrets.GHCR_PAT }} ghcr.io
-        docker build ./api/. --tag ghcr.io/nasc1mento/nvn-api:latest
-        docker push ghcr.io/nasc1mento/nvn-api
+        docker build ./api/. --tag ghcr.io/nasc1mento/${{ matrix.app }}:latest
+        docker push ghcr.io/nasc1mento/${{ matrix.app }}
+
+        
 
