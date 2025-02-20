@@ -17,14 +17,14 @@ jobs:
       id-token: write
     strategy:
       matrix:
-        app: [nvn-api, nvn-proxy]
+        app: [api, nginx]
 
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker ${{ matrix.app }}
       run: | 
         docker login --username nasc1mento --password ${{ secrets.GHCR_PAT }} ghcr.io
-        docker build ./api/. --tag ghcr.io/nasc1mento/${{ matrix.app }}:latest
+        docker build ./${{ matrix.app }}. --tag ghcr.io/nasc1mento/${{ matrix.app }}:latest
         docker push ghcr.io/nasc1mento/${{ matrix.app }}
 
         
