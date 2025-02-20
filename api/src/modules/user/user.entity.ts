@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, MaxLength, Min, MinLength } from "class-validator";
+import { IsEmail, IsNotEmpty, MaxLength, MinLength } from "class-validator";
 import { IsValidCPF } from "./userCpfValidation.decorator";
 import { User } from "./user.schema";
 import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger";
@@ -32,6 +32,6 @@ export class UserEntity implements User {
     password: string;
 }
 
-export class UserLoginDto extends OmitType(UserEntity, ['id']) {}
+export class UserLoginDto extends OmitType(UserEntity, ['id', 'email', 'name']) {}
 export class UserRegisterDto extends OmitType(UserEntity, ['id']) {}
 export class UserUpdateDto extends OmitType(PartialType(UserEntity), ['id','cpf']) {}
