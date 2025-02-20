@@ -24,7 +24,7 @@ jobs:
     - name: Build the Docker ${{ matrix.app }}
       run: | 
         docker login --username nasc1mento --password ${{ secrets.GHCR_PAT }} ghcr.io
-        docker build ./${{ matrix.app }} . --tag ghcr.io/nasc1mento/${{ matrix.app }}:latest
+        docker build ./${{ matrix.app }}/. --tag ghcr.io/nasc1mento/${{ matrix.app }}:latest
         docker push ghcr.io/nasc1mento/${{ matrix.app }}
 
         
