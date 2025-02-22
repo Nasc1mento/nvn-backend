@@ -7,12 +7,16 @@ export type BookDocument = Book & Document;
 export class Book {
     @Prop()
     userId: string;
+
     @Prop()
     title: string;
+
     @Prop()
     author: string;
+
     @Prop()
     genre: string;
+    
     @Prop()
     pages: number;
 }

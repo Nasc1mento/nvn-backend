@@ -16,15 +16,17 @@ export class User {
         required: true,
     })
     cpf: string;
+
     @Prop()
     name: string;
+
     @Prop({
         unique: true,
     })
     email: string;
+
     @Prop()
     password: string;
-
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -4,7 +4,7 @@ import { IsNumber, IsOptional, IsString, Min } from "class-validator";
 
 export class BookDTO {
     @Expose()
-    readonly id: string
+    readonly id: string;
 
     @Expose()
     readonly title: string;
