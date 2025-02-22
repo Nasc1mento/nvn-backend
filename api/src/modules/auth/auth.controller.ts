@@ -1,8 +1,8 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { UserEntity, UserLoginDto, UserRegisterDto } from "../user/user.entity";
 import { Public } from "./guard/publicRoute.decorator";
 import { ApiBadRequestResponse, ApiConflictResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { SignInDTO, SignUpDTO, UserDTO } from "../user/user.dto";
 
 
 @ApiTags('Auth')
@@ -18,7 +18,7 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @Post('login')
     @Public()
-    async login(@Body() body: UserLoginDto): Promise<{ token: string, user: UserEntity }> {
+    async login(@Body() body: SignInDTO): Promise<{ token: string, user: UserDTO }> {
         return this.authService.signIn(body);
     }
 
@@ -27,7 +27,7 @@ export class AuthController {
     @HttpCode(HttpStatus.CREATED)
     @Post('register')
     @Public()
-    async register(@Body() body: UserRegisterDto): Promise<UserEntity> {
+    async register(@Body() body: SignUpDTO): Promise<UserDTO> {
         return this.authService.signUp(body);
     }
 }

@@ -2,9 +2,9 @@ import { BadRequestException, Injectable, NotFoundException, Scope } from "@nest
 import { User, UserDocument } from "../user/user.schema";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { UserEntity, UserLoginDto, UserRegisterDto } from "../user/user.entity";
 import { JwtService } from "@nestjs/jwt";
 import { plainToInstance } from "class-transformer";
+import { SignInDTO, SignUpDTO, UserDTO } from "../user/user.dto";
 
 
 @Injectable()
@@ -14,7 +14,7 @@ export class AuthService {
         private readonly jwtService: JwtService,
     ) {}
 
-    async signIn(entity: UserLoginDto): Promise<{ token: string, user: UserEntity }> {
+    async signIn(entity: SignInDTO): Promise<{ token: string, user: UserDTO }> {
         const user = await this.userModel.findOne({ cpf: entity.cpf });
         if (!user) {
             throw new NotFoundException('User not found');
@@ -27,16 +27,16 @@ export class AuthService {
 
         return {
             token: this.jwtService.sign({ id: user.id }),
-            user: plainToInstance(UserEntity, user),
+            user: plainToInstance(UserDTO, user),
         };
     }
 
-    async signUp(entity: UserRegisterDto): Promise<UserEntity> {
+    async signUp(entity: SignUpDTO): Promise<UserDTO> {
         const user = await this.userModel.findOne({ cpf: entity.cpf });
         if (user) {
             throw new BadRequestException('User already exists');
         }
 
-        return plainToInstance(UserEntity, await this.userModel.create(entity));
+        return plainToInstance(UserDTO, await this.userModel.create(entity));
     }
 }

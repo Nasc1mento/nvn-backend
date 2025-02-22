@@ -1,8 +1,8 @@
-import { Body, Controller, Delete, Get, HttpStatus, Put } from "@nestjs/common";
-import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Delete, Get, Put } from "@nestjs/common";
+import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { UserService } from "./user.service";
 import { UserId } from "./userIdFromToken.decorator";
-import { UserUpdateDto, UserEntity } from "./user.entity";
+import { UserDTO, UserUpdateDTO } from "./user.dto";
 
 
 @ApiBearerAuth()
@@ -16,14 +16,14 @@ export class UserController {
     @ApiOkResponse({ description: 'User profile'})
     @ApiNotFoundResponse({ description: 'User not found' })
     @Get('profile')
-    async getProfile(@UserId() userId: string): Promise<UserEntity> {
+    async getProfile(@UserId() userId: string): Promise<UserDTO> {
         return this.userService.getUserById(userId);
     }
 
     @ApiOkResponse({ description: 'User updated' })
     @ApiNotFoundResponse({ description: 'User not found' })
     @Put('profile')
-    async updateProfile(@UserId() userId: string,@Body() user: UserUpdateDto): Promise<UserEntity> {
+    async updateProfile(@UserId() userId: string,@Body() user: UserUpdateDTO): Promise<UserDTO> {
         return this.userService.updateUserById(userId, user);
     }
 
