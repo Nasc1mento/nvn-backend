@@ -1,8 +1,9 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { Public } from "./guard/publicRoute.decorator";
-import { ApiBadRequestResponse, ApiConflictResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBadRequestResponse, ApiConflictResponse, ApiCreatedResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { SignInDTO, SignUpDTO, UserDTO } from "../user/user.dto";
+import { UserId } from "../user/userIdFromToken.decorator";
 
 
 @ApiTags('Auth')
@@ -29,5 +30,11 @@ export class AuthController {
     @Public()
     async register(@Body() body: SignUpDTO): Promise<UserDTO> {
         return this.authService.signUp(body);
+    }
+
+
+    @ApiNoContentResponse({ description: 'User logged out'})
+    async logout(@UserId() userId: string) {
+        return this.authService.logout(userId);
     }
 }

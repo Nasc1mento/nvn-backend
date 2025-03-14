@@ -7,6 +7,25 @@ services:
       - nvn-network
     volumes:
       - mongodb-nvn-data:/data/db
+    restart: always
+  reverse-proxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: reverse-proxy-nvn
+    networks:
+      - nvn-network
+    ports:
+      - "3001:8080"
+  redis:
+    image: redis
+    container_name: redis-nvn
+    ports: "6379"
+    networks:
+      - nvn-network
+    restart: always
+    volume:
+      - redis-nvn-data
   api:
     build:
       context: ./api
@@ -17,18 +36,9 @@ services:
     container_name: api-nvn
     networks:
       - nvn-network
-  reverse-proxy:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    container_name: reverse-proxy-nvn
-    networks:
-      - nvn-network
-    ports:
-      - "3001:8080"
-    
 networks:
   nvn-network:
     driver: bridge
 volumes:
   mongodb-nvn-data:
+  redis-nvn-data:
